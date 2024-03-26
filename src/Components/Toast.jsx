@@ -51,14 +51,15 @@ function Toast({ message, handleMessageRemove }) {
     <div className="toast slide-in-animation" style={styles} ref={ref}>
       <div className="toast-icon-container">{toastIcon()}</div>
       <div className="message-container">
-        {message.message.length > 65
-          ? `${message.message.slice(0, 70)}...`
-          : message.message}
+        {message.message}
       </div>
       <span
         className="close-btn"
         onClick={() => {
-          handleMessageRemove(message.id);
+          ref.current.classList = "toast slide-out-animation";
+          setTimeout(() => {
+            handleMessageRemove(message.id);
+          }, 450);
         }}
       >
         <FiXCircle />
