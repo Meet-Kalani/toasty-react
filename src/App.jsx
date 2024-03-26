@@ -1,6 +1,6 @@
 import Toast from "./Components/Toast";
 import UserInput from "./Components/UserInput";
-import { useReducer } from "react";
+import { useReducer,useCallback } from "react";
 
 function reducer(state, action) {
   if (action.type === "add-message") {
@@ -20,13 +20,13 @@ function reducer(state, action) {
 function App() {
   const [messages, dispatch] = useReducer(reducer, []);
 
-  const handleNewMessage = (message, toastType) => {
+  const handleNewMessage = useCallback((message, toastType) => {
     dispatch({ type: "add-message", message, toastType });
-  };
+  },[]);
 
-  const handleMessageRemove = (id) => {
+  const handleMessageRemove = useCallback((id) => {
     dispatch({ type: "remove-message", id });
-  };
+  },[]);
 
   return (
     <main className="main-container">
