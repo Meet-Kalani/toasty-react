@@ -1,11 +1,31 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import DialogBox from "./DialogBox";
+import ToastOption from "./ToastOption";
 
 function UserInput({ handleNewMessage }) {
   const [message, setMessage] = useState("");
   const [toastType, setToastType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toastVariants = [
+    {
+      id: "notice-variant",
+      value: "notice",
+    },
+    {
+      id: "warning-variant",
+      value: "warning",
+    },
+    {
+      id: "success-variant",
+      value: "success",
+    },
+    {
+      id: "error-variant",
+      value: "error",
+    },
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,46 +76,16 @@ function UserInput({ handleNewMessage }) {
         <div className="toast-variants-container">
           <label className="toast-variants-title">Toast Variant</label>
           <div className="toast-variants">
-            <div className="toast-variant">
-              <input
-                type="radio"
-                id="notice-variant"
-                value="notice"
-                onChange={handleVariantChange}
-                name="toast-variant"
-              />
-              <label htmlFor="notice-variant">notice</label>
-            </div>
-            <div className="toast-variant">
-              <input
-                type="radio"
-                id="warning-variant"
-                value="warning"
-                onChange={handleVariantChange}
-                name="toast-variant"
-              />
-              <label htmlFor="warning-variant">warning</label>
-            </div>
-            <div className="toast-variant">
-              <input
-                type="radio"
-                id="success-variant"
-                value="success"
-                onChange={handleVariantChange}
-                name="toast-variant"
-              />
-              <label htmlFor="success-variant">success</label>
-            </div>
-            <div className="toast-variant">
-              <input
-                type="radio"
-                id="error-variant"
-                value="error"
-                onChange={handleVariantChange}
-                name="toast-variant"
-              />
-              <label htmlFor="error-variant">error</label>
-            </div>
+            {toastVariants.map((toastVariant) => {
+              return (
+                <ToastOption
+                  key={toastVariant.id}
+                  id={toastVariant.id}
+                  value={toastVariant.value}
+                  handleVariantChange={handleVariantChange}
+                />
+              );
+            })}
           </div>
         </div>
         <div>
