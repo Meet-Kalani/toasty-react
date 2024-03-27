@@ -70,7 +70,7 @@ function Toast({ message, handleMessageRemove }) {
       className={
         slideOut ? "toast slide-out-animation" : "toast slide-in-animation"
       }
-      style={backgroundColor}
+      style={{ backgroundColor }}
     >
       <div className="toast-icon-container">{icon}</div>
       <div className="message-container">{message.message}</div>
