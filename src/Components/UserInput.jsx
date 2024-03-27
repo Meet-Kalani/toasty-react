@@ -3,29 +3,28 @@ import PropTypes from "prop-types";
 import DialogBox from "./DialogBox";
 import ToastOption from "./ToastOption";
 
+const toastVariants = [
+  {
+    id: "notice-variant",
+    value: "notice",
+  },
+  {
+    id: "warning-variant",
+    value: "warning",
+  },
+  {
+    id: "success-variant",
+    value: "success",
+  },
+  {
+    id: "error-variant",
+    value: "error",
+  },
+];
 function UserInput({ handleNewMessage }) {
   const [message, setMessage] = useState("");
   const [toastType, setToastType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toastVariants = [
-    {
-      id: "notice-variant",
-      value: "notice",
-    },
-    {
-      id: "warning-variant",
-      value: "warning",
-    },
-    {
-      id: "success-variant",
-      value: "success",
-    },
-    {
-      id: "error-variant",
-      value: "error",
-    },
-  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
