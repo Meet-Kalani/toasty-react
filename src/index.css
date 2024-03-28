@@ -1,3 +1,7 @@
+:root {
+  --font-family-default: 'Montserrat', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +14,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-family-default);
   color: #fff;
 }
 
@@ -34,7 +38,7 @@ body {
   border: none;
   padding: 8px 35px;
   border-radius: 6px;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-family-default);
   font-weight: 600;
   cursor: pointer;
   display: block;
@@ -66,7 +70,7 @@ body {
   border: 3px solid rgba(224, 208, 208, 0.849);
   padding: 8px;
   outline: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-family-default);
   font-weight: 500;
   font-size: 16px;
   border-radius: 8px;
@@ -106,30 +110,8 @@ body {
   animation: slideIn 480ms ease-in-out;
 }
 
-@keyframes slideIn {
-  from {
-    right: -250px;
-    opacity: 0;
-  }
-  to {
-    right: 0;
-    opacity: 1;
-  }
-}
-
 .slide-out-animation {
   animation: slideOut 480ms ease-in-out;
-}
-
-@keyframes slideOut {
-  from {
-    right: 0;
-    opacity: 1;
-  }
-  to {
-    right: -250px;
-    opacity: 0;
-  }
 }
 
 .toast .message-container {
@@ -138,6 +120,7 @@ body {
   word-wrap: break-word;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
 }
 
@@ -154,7 +137,11 @@ body {
 }
 
 .dialog {
-  background-color: #3b3923;
+  background-color: #fff;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: 5px solid rgba(202, 190, 190, 0.849);
+  color: #000;
+  font-weight: 500;
   padding: 32px;
   border-radius: 8px;
   position: absolute;
@@ -165,15 +152,17 @@ body {
 }
 
 .dialog .close-btn {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border: none;
   padding: 8px 25px;
-  background-color: #b4c292;
+  background-color: #ff1654;
+  color: #fff;
   display: block;
   margin: auto;
   margin-top: 32px;
   cursor: pointer;
   border-radius: 8px;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--font-family-default);
   font-weight: 600;
 }
 
@@ -223,5 +212,27 @@ body {
   .toast-container .toast {
     width: 90%;
     margin-left: auto;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    right: -250px;
+    opacity: 0;
+  }
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    right: 0;
+    opacity: 1;
+  }
+  to {
+    right: -250px;
+    opacity: 0;
   }
 }

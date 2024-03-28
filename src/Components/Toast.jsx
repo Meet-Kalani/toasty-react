@@ -1,21 +1,42 @@
-import {
-  FiTool,
-  FiAlertTriangle,
-  FiCheckCircle,
-  FiAlertOctagon,
-  FiXCircle,
-} from "react-icons/fi";
-import { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import { FiTool, FiAlertTriangle, FiCheckCircle, FiAlertOctagon, FiXCircle, FiAlertCircle } from 'react-icons/fi';
+import { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+const toastIcon = (message) => {
+  const icons = {
+    info: {
+      icon: <FiAlertOctagon className="toast-icon" />,
+      backgroundColor: '#D69AFF',
+    },
+    warning: {
+      icon: <FiTool className="toast-icon" />,
+      backgroundColor: '#CECE4A',
+    },
+    success: {
+      icon: <FiCheckCircle className="toast-icon" />,
+      backgroundColor: '#5FD65F',
+    },
+    error: {
+      icon: <FiAlertTriangle className="toast-icon" />,
+      backgroundColor: '#BB4D4D',
+    },
+    default: {
+      icon: <FiAlertCircle className="toast-icon" />,
+      backgroundColor: '#333',
+    },
+  };
+
+  return icons[message.toastType] || icons.default;
+};
 
 function Toast({ message, handleMessageRemove }) {
-  const ref = useRef(null);
+  const [slideOut, setSlideOut] = useState(false); // state for tracking slide out animation
 
   useEffect(() => {
     let timeoutIdForAnimation;
 
     const timeoutIdForRemoval = setTimeout(() => {
-      ref.current.classList = "toast slide-out-animation";
+      setSlideOut(true);
 
       timeoutIdForAnimation = setTimeout(() => {
         handleMessageRemove(message.id);
@@ -24,44 +45,25 @@ function Toast({ message, handleMessageRemove }) {
 
     return () => {
       clearTimeout(timeoutIdForRemoval);
+
       clearTimeout(timeoutIdForAnimation);
     };
-  }, []);
+  }, [handleMessageRemove, message.id]);
 
-  const styles = {};
+  const handleCloseBtn = useCallback(() => {
+    setSlideOut(true);
+    setTimeout(() => {
+      handleMessageRemove(message.id);
+    }, 450);
+  }, [message.id, handleMessageRemove]);
 
-  const toastIcon = () => {
-    if (message.toastType === "notice") {
-      styles.backgroundColor = "#D69AFF";
-      return <FiAlertOctagon className="toast-icon" />;
-    } else if (message.toastType === "warning") {
-      styles.backgroundColor = "#CECE4A";
-      return <FiTool className="toast-icon" />;
-    } else if (message.toastType === "success") {
-      styles.backgroundColor = "#5FD65F";
-      return <FiCheckCircle className="toast-icon" />;
-    } else if (message.toastType === "error") {
-      styles.backgroundColor = "#BB4D4D";
-      return <FiAlertTriangle className="toast-icon" />;
-    }
-    return;
-  };
+  const { icon, backgroundColor } = toastIcon(message);
 
   return (
-    <div className="toast slide-in-animation" style={styles} ref={ref}>
-      <div className="toast-icon-container">{toastIcon()}</div>
-      <div className="message-container">
-        {message.message}
-      </div>
-      <span
-        className="close-btn"
-        onClick={() => {
-          ref.current.classList = "toast slide-out-animation";
-          setTimeout(() => {
-            handleMessageRemove(message.id);
-          }, 450);
-        }}
-      >
+    <div className={slideOut ? 'toast slide-out-animation' : 'toast slide-in-animation'} style={{ backgroundColor }}>
+      <div className="toast-icon-container">{icon}</div>
+      <div className="message-container">{message.message}</div>
+      <span className="close-btn" onClick={handleCloseBtn}>
         <FiXCircle />
       </span>
     </div>
@@ -69,8 +71,12 @@ function Toast({ message, handleMessageRemove }) {
 }
 
 Toast.propTypes = {
-  message: PropTypes.object,
-  handleMessageRemove: PropTypes.func,
+  message: PropTypes.shape({
+    id: PropTypes.string,
+    toastType: PropTypes.string,
+    message: PropTypes.string,
+  }).isRequired,
+  handleMessageRemove: PropTypes.func.isRequired,
 };
 
 export default Toast;
