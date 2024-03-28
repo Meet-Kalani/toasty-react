@@ -1,29 +1,29 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import DialogBox from "./DialogBox";
-import ToastOption from "./ToastOption";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import DialogBox from './DialogBox';
+import ToastOption from './ToastOption';
 
 const toastVariants = [
   {
-    id: "notice-variant",
-    value: "notice",
+    id: 'info-variant',
+    value: 'info',
   },
   {
-    id: "warning-variant",
-    value: "warning",
+    id: 'warning-variant',
+    value: 'warning',
   },
   {
-    id: "success-variant",
-    value: "success",
+    id: 'success-variant',
+    value: 'success',
   },
   {
-    id: "error-variant",
-    value: "error",
+    id: 'error-variant',
+    value: 'error',
   },
 ];
 function UserInput({ handleNewMessage }) {
-  const [message, setMessage] = useState("");
-  const [toastType, setToastType] = useState("");
+  const [message, setMessage] = useState('');
+  const [toastType, setToastType] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
@@ -35,7 +35,7 @@ function UserInput({ handleNewMessage }) {
     }
 
     handleNewMessage(message, toastType);
-    setMessage("");
+    setMessage('');
   };
 
   const handleVariantChange = (e) => {
@@ -51,9 +51,7 @@ function UserInput({ handleNewMessage }) {
       <form onSubmit={handleSubmit} className="user-input-form">
         {isModalOpen && (
           <DialogBox
-            message={
-              "Error: Unable to proceed. Please enter a message and select a toast type before proceeding."
-            }
+            message={'Error: Unable to proceed. Please enter a message and select a toast type before proceeding.'}
             handleCloseModal={handleCloseModal}
           />
         )}

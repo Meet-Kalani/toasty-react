@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import { createPortal } from "react-dom";
+import PropTypes from 'prop-types';
+import { createPortal } from 'react-dom';
 
 function DialogBox({ message, handleCloseModal }) {
   return createPortal(
@@ -9,7 +9,7 @@ function DialogBox({ message, handleCloseModal }) {
         Close
       </button>
     </div>,
-    document.querySelector("#dialogbox-portal")
+    document.querySelector('#dialogbox-portal'),
   );
 }
 
